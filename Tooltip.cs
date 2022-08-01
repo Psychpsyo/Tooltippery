@@ -1,5 +1,4 @@
 ﻿using FrooxEngine;
-using FrooxEngine.UIX;
 
 namespace Tooltippery
 {
@@ -16,9 +15,9 @@ namespace Tooltippery
             textRenderer.Text.Value = label;
             textRenderer.VerticalAlign.Value = CodeX.TextVerticalAlignment.Top;
             textRenderer.HorizontalAlign.Value = CodeX.TextHorizontalAlignment.Left;
-            textRenderer.Size.Value = 200 * Tooltippery.config.GetValue(Tooltippery.textScale);
+            textRenderer.Size.Value = 200 * getScale();
             textRenderer.Bounded.Value = true;
-            textRenderer.BoundsSize.Value = new BaseX.float2(700 * Tooltippery.config.GetValue(Tooltippery.textScale), 1);
+            textRenderer.BoundsSize.Value = new BaseX.float2(700 * getScale(), 1);
             textRenderer.BoundsAlignment.Value = BaseX.Alignment.TopLeft;
             textRenderer.Color.Value = Tooltippery.config.GetValue(Tooltippery.textColor);
 
@@ -33,7 +32,7 @@ namespace Tooltippery
             sizeDriver.BoundedSource.Target = textRenderer;
             sizeDriver.Size.Target = backPanel.Scale_Field;
             sizeDriver.Center.Target = backPanel.Position_Field;
-            sizeDriver.Padding.Value = new BaseX.float3(8 * Tooltippery.config.GetValue(Tooltippery.textScale), 8 * Tooltippery.config.GetValue(Tooltippery.textScale), 0);
+            sizeDriver.Padding.Value = new BaseX.float3(8 * getScale(), 8 * getScale(), 0);
             
             UI_UnlitMaterial mat = backPanel.AttachComponent<UI_UnlitMaterial>();
             mat.Tint.Value = Tooltippery.config.GetValue(Tooltippery.bgColor);
@@ -41,6 +40,12 @@ namespace Tooltippery
 
             slot.GlobalScale = slot.World.LocalUserViewScale * new BaseX.float3(.001f, .001f, .001f);
         }
+
+        private float getScale()
+        {
+            return (float) (Tooltippery.config.GetValue(Tooltippery.textScale) * (slot.GetComponentInParents<UserspaceRadiantDash>() == null? 1 : 2.5));
+        }
+
         public void hide()
         {
             slot.Destroy();
