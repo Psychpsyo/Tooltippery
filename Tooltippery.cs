@@ -64,7 +64,7 @@ namespace Tooltippery
             return null;
         }
         
-        // UIX canvas tooltips
+        // UIX button tooltips
         [HarmonyPatch(typeof(Button), "RunHoverEnter")]
         class ButtonTooltipOpen
         {
@@ -81,6 +81,21 @@ namespace Tooltippery
 
         [HarmonyPatch(typeof(Button), "RunHoverLeave")]
         class ButtonTooltipClose
+        {
+            static void Postfix(Button __instance)
+            {
+                Tooltip toClose;
+                while (openTooltips.TryGetValue(__instance, out toClose))
+                {
+                    openTooltips.Remove(__instance);
+                    hideTooltip(toClose);
+                }
+            }
+        }
+
+        // closes all tooltips for a button when that button gets destroyed.
+        [HarmonyPatch(typeof(Button), "OnDispose")]
+        class ButtonTooltipDispose
         {
             static void Postfix(Button __instance)
             {
