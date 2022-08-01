@@ -85,7 +85,7 @@ namespace Tooltippery
             static void Postfix(Button __instance)
             {
                 Tooltip toClose;
-                if (openTooltips.TryGetValue(__instance, out toClose))
+                while (openTooltips.TryGetValue(__instance, out toClose))
                 {
                     openTooltips.Remove(__instance);
                     hideTooltip(toClose);
