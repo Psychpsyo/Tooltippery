@@ -14,8 +14,8 @@ namespace Tooltippery
         public override string Version => "1.0.0";
         public override string Link => "https://github.com/Psychpsyo/Tooltippery";
 
-        private static Dictionary<Button, Tooltip> openTooltips = new Dictionary<Button, Tooltip>();
-        public static List<Func<Button, ButtonEventData, string>> labelProviders = new List<Func<Button, ButtonEventData, string>>();
+        private static Dictionary<IButton, Tooltip> openTooltips = new Dictionary<IButton, Tooltip>();
+        public static List<Func<IButton, ButtonEventData, string>> labelProviders = new List<Func<IButton, ButtonEventData, string>>();
 
         [AutoRegisterConfigKey]
         public static ModConfigurationKey<BaseX.color> textColor = new ModConfigurationKey<BaseX.color>("Text Color", "Sets the text color of a tooltip.", () => new BaseX.color(1, 1, 1, 1));
@@ -43,10 +43,10 @@ namespace Tooltippery
         {
             tooltip.hide();
         }
-        private static string determineLabel(Button button, ButtonEventData eventData)
+        private static string determineLabel(IButton button, ButtonEventData eventData)
         {
             string label = null;
-            foreach (Func<Button, ButtonEventData, string> provider in labelProviders)
+            foreach (Func<IButton, ButtonEventData, string> provider in labelProviders)
             {
                 label = provider(button, eventData);
                 if (label != null)
@@ -56,7 +56,7 @@ namespace Tooltippery
             }
             return null;
         }
-        private static string commentLabels(Button button, ButtonEventData eventData)
+        private static string commentLabels(IButton button, ButtonEventData eventData)
         {
             string comment = button.Slot.GetComponent<Comment>()?.Text.Value;
             if (comment == null) return null;

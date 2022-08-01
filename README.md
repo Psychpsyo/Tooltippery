@@ -13,7 +13,7 @@ To add a tooltip to a UIX Button, simply put a Comment component (Uncategorized 
 
 If you are making a mod that needs more than just a button with associated tooltip text, this mod provides multiple things:  
 1. The Tooltippery class has a property called labelProviders.  
-This is of type List<Func<Button, ButtonEventData, string>>, and holds a list of functions which, given a Button and ButtonEventData object, can return any string they like, indicating that that should be a label for the Button in question. These are consulted every time the player hovers over a Button.
+This is of type List<Func<IButton, ButtonEventData, string>>, and holds a list of functions which, given an IButton and ButtonEventData object, can return any string they like, indicating that that should be the label for the button in question. These are currently consulted every time the player hovers over a UIX.Button.
 2. If you wish to manually open tooltips for some other reason, the Tooltippery class provides both a showTooltip() and a hideTooltip() function.  
 showTooltip()  takes a string, Slot and float3, telling it where to parent the new tooltip and what text to put on it.  
 It then returns a Tooltip object which can be passed to hideTooltip() to close the tooltip again.  
