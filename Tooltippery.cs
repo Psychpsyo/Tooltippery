@@ -11,7 +11,7 @@ namespace Tooltippery
     {
         public override string Name => "Tooltippery";
         public override string Author => "Psychpsyo";
-        public override string Version => "1.0.0";
+        public override string Version => "1.0.1";
         public override string Link => "https://github.com/Psychpsyo/Tooltippery";
 
         private static Dictionary<IButton, Tooltip> openTooltips = new Dictionary<IButton, Tooltip>();
