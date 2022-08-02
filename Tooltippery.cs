@@ -70,6 +70,8 @@ namespace Tooltippery
         {
             static void Postfix(Button __instance, ButtonEventData eventData)
             {
+                if (openTooltips.ContainsKey(__instance)) return;
+
                 string label = determineLabel(__instance, eventData);
                 if (label != null)
                 {
@@ -85,7 +87,7 @@ namespace Tooltippery
             static void Postfix(Button __instance)
             {
                 Tooltip toClose;
-                while (openTooltips.TryGetValue(__instance, out toClose))
+                if (openTooltips.TryGetValue(__instance, out toClose))
                 {
                     openTooltips.Remove(__instance);
                     hideTooltip(toClose);
@@ -100,7 +102,7 @@ namespace Tooltippery
             static void Postfix(Button __instance)
             {
                 Tooltip toClose;
-                while (openTooltips.TryGetValue(__instance, out toClose))
+                if (openTooltips.TryGetValue(__instance, out toClose))
                 {
                     openTooltips.Remove(__instance);
                     hideTooltip(toClose);
