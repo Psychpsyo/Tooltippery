@@ -1,0 +1,57 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build Debug",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "-noLogo",
+                "-p:Configuration=Debug",
+                "${workspaceFolder}/Tooltippery.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "build Release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "-noLogo",
+                "-p:Configuration=Release",
+                "${workspaceFolder}/Tooltippery.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "build Release CopyToMods",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "-noLogo",
+                "-p:Configuration=Release",
+                "${workspaceFolder}/Tooltippery.csproj",
+                "/property:GenerateFullPaths=true,CopyToMods=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build"
+            }
+        }
+    ]
+}
